@@ -1,0 +1,15 @@
+{
+  "name": "grocery-shop-server",
+  "version": "1.0.0",
+  "description": "grocery shop",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
