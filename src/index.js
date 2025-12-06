@@ -1,11 +1,13 @@
 import dotenv from "dotenv";
-dotenv.config({ path: './.env' });  // Correct path
-
+import authRoutes from "./routes/auth.routes.js";
 import app from "./app.js";
 import connectDatabase from "./config/database.js";
 
 
+dotenv.config({ path: './.env' });  // Correct path
 
+
+app.use("/api/auth", authRoutes);
 
 const startServer = async () => {
   try {

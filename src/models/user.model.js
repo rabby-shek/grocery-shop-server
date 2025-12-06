@@ -22,6 +22,10 @@ const userSchema = new Schema(
       lowercase: true,
     },
 
+    passwordHashed: {
+      type: String,
+      required: true,
+    },
     password: {
       type: String,
       required: true,
@@ -41,6 +45,14 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,     // user must verify OTP first
     },
+    token: {
+      type: String,
+      default: null
+    },
+    isBanned: {
+      type: Boolean,
+      default: false
+    }
   },
   { timestamps: true }
 );
