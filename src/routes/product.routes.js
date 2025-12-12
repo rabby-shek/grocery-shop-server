@@ -1,5 +1,5 @@
 import express from 'express';
-import { createCategory, createProduct, getAllCategories, getSingleCategory, updateCategory } from '../controllers/product.controller.js';
+import { createCategory, createProduct, deleteCategory, getAllCategories, getSingleCategory, updateCategory } from '../controllers/product.controller.js';
 import dynamicUploader from '../middlewares/uploadimage.js';
 
 const router = express.Router();
@@ -14,6 +14,9 @@ router.post('/create-category', uploadCategoryImage.single('image'), createCateg
 router.get('/get-all-categories', getAllCategories);
 router.get('/get-single-category/:id', getSingleCategory);
 router.put('/update-category/:id', uploadCategoryImage.single('image'), updateCategory);
+router.delete("/delete-category/:id", deleteCategory);
+
+
 
 // ====================
 // All products route

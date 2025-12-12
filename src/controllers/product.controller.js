@@ -129,6 +129,36 @@ export const updateCategory = async (req, res) => {
     }
 }
 
+// =============================
+// DELETE CATEGORY
+// =============================
+export const deleteCategory = async (req, res) => {
+    try {
+        const category = await Categories.findByIdAndDelete(req.params.id);
+
+        if (!category) {
+            return res.status(404).json({
+                success: false,
+                message: "Category not found"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Category deleted successfully"
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to delete category",
+            error: error.message
+        });
+    }
+};
+
+
+
 // ==============
 // Create product
 // ==============
