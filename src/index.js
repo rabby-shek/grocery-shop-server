@@ -1,14 +1,20 @@
 import dotenv from "dotenv";
-import authRoutes from "./routes/auth.routes.js";
 import app from "./app.js";
 import connectDatabase from "./config/database.js";
+import authRoutes from "./routes/auth.routes.js";
+import categoryRoutes from "./routes/product.routes.js";
 
 
 dotenv.config({ path: './.env' });  // Correct path
 
 
+// All api routes connection
 app.use("/api/auth", authRoutes);
+app.use('/api/app', categoryRoutes);
 
+
+
+// server starting in here
 const startServer = async () => {
   try {
     await connectDatabase();
