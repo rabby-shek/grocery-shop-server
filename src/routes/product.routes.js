@@ -1,9 +1,12 @@
 import express from 'express';
-import upload from '../middlewares/upload.js';
-import { createCategory } from '../controllers/product.controller.js';
+import { createCategory, createProduct } from '../controllers/product.controller.js';
+import dynamicUploader from '../middlewares/uploadimage.js';
 
-const categoryRoutes = express.Router();
+const router = express.Router();
 
-categoryRoutes.post('/create-category', upload.single('image'), createCategory);
+const uploadProductImage = dynamicUploader('products');
+const uploadCategoryImage = dynamicUploader('category');
 
-export default categoryRoutes;
+router.post('/create-category', uploadCategoryImage.single('image'), createCategory);
+router.post('/create-product', uploadProductImage.single('image'), createProduct);
+export default router;
