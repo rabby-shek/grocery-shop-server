@@ -8,7 +8,7 @@ const categorySchema = new Schema(
     },
     image: {
       type: String,
-      default: "/uploads/categories/default.jpg", // your default image
+      default: "/uploads/default.png", // your default image
     },
   },
   { timestamps: true }
