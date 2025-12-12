@@ -10,7 +10,7 @@ export const createCategory = async (req, res) => {
         const { categoryName } = req.body;
 
         const imagePath = req.file
-            ? `/uploads/categories/${req.file.filename}`
+            ? `/uploads/category/${req.file.filename}`
             : undefined;
 
         const newCategory = await Categories.create({
@@ -91,7 +91,7 @@ export const updateCategory = async (req, res) => {
         const { categoryName } = req.body;
 
         const imagePath = req.file
-            ? `/uploads/categories/${req.file.filename}`
+            ? `/uploads/category/${req.file.filename}`
             : undefined;
 
         const updateData = { categoryName };
