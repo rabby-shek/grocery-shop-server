@@ -106,22 +106,25 @@ export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
+        // Find user by email
         const user = await User.findOne({ email });
         if (!user) return res.status(400).json({ message: "User not found" });
 
+        // Check if user is verified
         if (!user.isVerified)
             return res.status(403).json({ message: "Verify OTP first" });
 
-        const isMatch = await bcrypt.compare(password, user.password);
+        // Compare password with hashed password
+        const isMatch = await bcrypt.compare(password, user.passwordHashed);
         if (!isMatch)
             return res.status(400).json({ message: "Incorrect password" });
 
-        // Generate a simple user token
+        // Generate a token
         const token = crypto.randomBytes(32).toString("hex");
         user.token = token;
         await user.save();
 
-        res.json({ message: "Login successful", token, userId: user._id });
+        res.json({ message: "Login successful", token, userId: user._id, isAdmin: user.isAdmin });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -137,7 +140,6 @@ export const logout = async (req, res) => {
         const user = await User.findById(userId);
         if (!user) return res.status(400).json({ message: "User not found" });
 
-        // Remove the token
         user.token = null;
         await user.save();
 
@@ -146,3 +148,18 @@ export const logout = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+// -------------------------------
+// GET USER BY ID
+// -------------------------------
+export const getUserById = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id).select("-passwordHashed");
+        if (!user) return res.status(404).json({ message: "User not found" });
+
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
